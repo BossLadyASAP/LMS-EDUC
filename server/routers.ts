@@ -6,6 +6,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import * as db from "./db";
 import * as certificateService from "./certificateService";
+import { eq, and } from "drizzle-orm";
 
 export const appRouter = router({
   system: systemRouter,
