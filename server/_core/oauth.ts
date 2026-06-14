@@ -26,6 +26,14 @@ export function registerOAuthRoutes(app: Express) {
       : "student";
 
     try {
+      // Check if database is available
+      const database = await db.getDb();
+      if (!database) {
+        console.error("[Auth] Database not available during registration");
+        res.status(503).json({ error: "Database service temporarily unavailable" });
+        return;
+      }
+
       const existing = await db.getUserByEmail(email);
       if (existing) {
         res.status(409).json({ error: "An account with this email already exists" });
@@ -40,6 +48,14 @@ export function registerOAuthRoutes(app: Express) {
         role: userRole,
       });
 
+      // Verify the user was created before creating session
+      const createdUser = await db.getUserByOpenId(openId);
+      if (!createdUser) {
+        console.error("[Auth] User created but not found in database");
+        res.status(500).json({ error: "Failed to create user account" });
+        return;
+      }
+
       const sessionToken = await sdk.createSessionToken(openId, {
         name,
         expiresInMs: ONE_YEAR_MS,
@@ -49,8 +65,8 @@ export function registerOAuthRoutes(app: Express) {
       res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
       res.json({ success: true });
     } catch (error) {
-      console.error("[Auth] Register failed", error);
-      res.status(500).json({ error: "Registration failed" });
+      console.error("[Auth] Register failed:", error);
+      res.status(500).json({ error: "Registration failed. Please try again." });
     }
   });
 
@@ -64,6 +80,14 @@ export function registerOAuthRoutes(app: Express) {
     }
 
     try {
+      // Check if database is available
+      const database = await db.getDb();
+      if (!database) {
+        console.error("[Auth] Database not available during login");
+        res.status(503).json({ error: "Database service temporarily unavailable" });
+        return;
+      }
+
       const user = await db.getUserByEmail(email);
       if (!user || !user.passwordHash) {
         res.status(401).json({ error: "Invalid email or password" });
@@ -85,8 +109,8 @@ export function registerOAuthRoutes(app: Express) {
       res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
       res.json({ success: true, role: user.role });
     } catch (error) {
-      console.error("[Auth] Login failed", error);
-      res.status(500).json({ error: "Login failed" });
+      console.error("[Auth] Login failed:", error);
+      res.status(500).json({ error: "Login failed. Please try again." });
     }
   });
 }
