@@ -95,6 +95,38 @@ export async function getUserByEmail(email: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
+export async function getAllTeachers() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(users).where(eq(users.role, "teacher"));
+}
+
+export async function createTeacher(data: { email: string; name: string; password: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const existing = await getUserByEmail(data.email);
+  if (existing) {
+    throw new Error("A user with this email already exists");
+  }
+  
+  const bcrypt = await import("bcryptjs");
+  const passwordHash = await bcrypt.hash(data.password, 12);
+  const openId = `local_${crypto.randomUUID()}`;
+  
+  const [result] = await db.insert(users).values({
+    openId,
+    email: data.email,
+    name: data.name,
+    passwordHash,
+    role: "teacher",
+    loginMethod: "email",
+    lastSignedIn: new Date(),
+  });
+  
+  return { id: result.insertId, openId };
+}
+
 export async function createUserWithPassword(data: {
   email: string;
   name: string;

@@ -32,21 +32,25 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-slate-900/80 backdrop-blur-xl border-b border-green-500/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <BookOpen className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">EduHub</h1>
+            <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+              EduHub
+            </h1>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">{user?.name}</span>
+            <span className="text-sm text-green-200">{user?.name}</span>
             <Button
               variant="outline"
               size="sm"
               onClick={() => navigate("/student/certificates")}
-              className="gap-2"
+              className="gap-2 border-green-500/50 text-green-200 hover:bg-green-500/20"
             >
               <Award className="w-4 h-4" />
               Certificates
@@ -55,7 +59,7 @@ export default function StudentDashboard() {
               variant="outline"
               size="sm"
               onClick={handleLogout}
-              className="gap-2"
+              className="gap-2 border-green-500/50 text-green-200 hover:bg-green-500/20"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -68,31 +72,31 @@ export default function StudentDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-4xl font-bold text-white mb-2">
             Welcome back, {user?.name}!
           </h2>
-          <p className="text-gray-600">
+          <p className="text-green-200">
             Continue your learning journey with our courses
           </p>
         </div>
 
         {/* Tabs */}
         <Tabs defaultValue="enrolled" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 max-w-md">
-            <TabsTrigger value="enrolled">My Courses</TabsTrigger>
-            <TabsTrigger value="explore">Explore</TabsTrigger>
-            <TabsTrigger value="certificates">Certificates</TabsTrigger>
+          <TabsList className="bg-slate-800/50 border border-green-500/20 grid w-full grid-cols-3 max-w-md">
+            <TabsTrigger value="enrolled" className="data-[state=active]:bg-green-600">My Courses</TabsTrigger>
+            <TabsTrigger value="explore" className="data-[state=active]:bg-green-600">Explore</TabsTrigger>
+            <TabsTrigger value="certificates" className="data-[state=active]:bg-green-600">Certificates</TabsTrigger>
           </TabsList>
 
           {/* My Courses Tab */}
           <TabsContent value="enrolled" className="space-y-6">
             {enrolledCourses.length === 0 ? (
-              <Card className="p-8 text-center">
-                <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">
+              <Card className="p-8 text-center bg-slate-800/50 border-green-500/20">
+                <BookOpen className="w-12 h-12 text-green-400 mx-auto mb-4" />
+                <p className="text-green-200">
                   You haven't enrolled in any courses yet.
                 </p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-green-300 mt-2">
                   Explore available courses to get started
                 </p>
               </Card>
@@ -105,33 +109,33 @@ export default function StudentDashboard() {
                   return (
                     <Card
                       key={enrollment.id}
-                      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                      className="overflow-hidden hover:shadow-2xl hover:shadow-green-500/20 transition-all cursor-pointer border-green-500/20 bg-slate-800/50"
                     >
-                      <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-32" />
+                      <div className="bg-gradient-to-r from-green-600 to-emerald-600 h-32" />
                       <div className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2">
+                        <h3 className="font-semibold text-white mb-2">
                           {course?.title}
                         </h3>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-green-200 mb-4">
                           {course?.description}
                         </p>
                         <div className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Progress</span>
-                            <span className="font-semibold text-gray-900">
+                            <span className="text-green-300">Progress</span>
+                            <span className="font-semibold text-white">
                               {progress?.percentage || 0}%
                             </span>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-slate-700 rounded-full h-2">
                             <div
-                              className="bg-blue-600 h-2 rounded-full transition-all"
+                              className="bg-green-600 h-2 rounded-full transition-all"
                               style={{
                                 width: `${progress?.percentage || 0}%`,
                               }}
                             />
                           </div>
                         </div>
-                        <Button className="w-full mt-4">Continue Learning</Button>
+                        <Button className="w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">Continue Learning</Button>
                       </div>
                     </Card>
                   );
@@ -143,13 +147,13 @@ export default function StudentDashboard() {
           {/* Explore Tab */}
           <TabsContent value="explore" className="space-y-6">
             <div className="relative mb-6">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-3 w-5 h-5 text-green-400" />
               <input
                 type="text"
                 placeholder="Search courses..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-green-500/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white placeholder:text-green-300/50"
               />
             </div>
 
@@ -164,17 +168,17 @@ export default function StudentDashboard() {
                 .map((course) => (
                   <Card
                     key={course.id}
-                    className="overflow-hidden hover:shadow-lg transition-shadow"
+                    className="overflow-hidden hover:shadow-2xl hover:shadow-green-500/20 transition-all border-green-500/20 bg-slate-800/50"
                   >
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 h-32" />
+                    <div className="bg-gradient-to-r from-green-600 to-emerald-600 h-32" />
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3 className="font-semibold text-white mb-2">
                         {course.title}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-4">
+                      <p className="text-sm text-green-200 mb-4">
                         {course.description}
                       </p>
-                      <Button className="w-full">Enroll Now</Button>
+                      <Button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">Enroll Now</Button>
                     </div>
                   </Card>
                 ))}
@@ -184,32 +188,32 @@ export default function StudentDashboard() {
           {/* Certificates Tab */}
           <TabsContent value="certificates" className="space-y-6">
             {certificates.length === 0 ? (
-              <Card className="p-8 text-center">
-                <Award className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">
+              <Card className="p-8 text-center bg-slate-800/50 border-green-500/20">
+                <Award className="w-12 h-12 text-green-400 mx-auto mb-4" />
+                <p className="text-green-200">
                   You haven't earned any certificates yet.
                 </p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-green-300 mt-2">
                   Complete all courses in a module to earn a certificate
                 </p>
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {certificates.map((cert) => (
-                  <Card key={cert.id} className="p-6 hover:shadow-lg transition-shadow">
+                  <Card key={cert.id} className="p-6 hover:shadow-2xl hover:shadow-green-500/20 transition-all border-green-500/20 bg-slate-800/50">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">
+                        <h3 className="font-semibold text-white mb-1">
                           Certificate
                         </h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-green-200">
                           Issued on{" "}
                           {new Date(cert.issuedAt).toLocaleDateString()}
                         </p>
                       </div>
-                      <Award className="w-8 h-8 text-yellow-500" />
+                      <Award className="w-8 h-8 text-yellow-400" />
                     </div>
-                    <Button className="w-full mt-4">Download Certificate</Button>
+                    <Button className="w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">Download Certificate</Button>
                   </Card>
                 ))}
               </div>

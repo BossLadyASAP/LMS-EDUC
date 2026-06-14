@@ -289,6 +289,18 @@ export const appRouter = router({
 
   // Promoter routes
   promoter: router({
+    teachers: router({
+      list: promoterProcedure.query(async () => {
+        return db.getAllTeachers();
+      }),
+      create: promoterProcedure.input(z.object({
+        email: z.string().email(),
+        name: z.string().min(1),
+        password: z.string().min(6),
+      })).mutation(async ({ input }) => {
+        return db.createTeacher(input);
+      }),
+    }),
     modules: router({
       list: promoterProcedure.query(async ({ ctx }) => {
         return db.getModulesByPromoter(ctx.user.id);

@@ -87,13 +87,17 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Nav */}
-      <nav className="bg-white shadow-sm">
+      <nav className="bg-slate-900/80 backdrop-blur-xl border-b border-purple-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-8 h-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">EduHub</span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              EduHub
+            </span>
           </div>
         </div>
       </nav>
@@ -101,40 +105,42 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col lg:flex-row gap-16 items-center">
         {/* Hero */}
         <div className="flex-1">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Welcome to EduHub</h1>
-          <p className="text-xl text-gray-600 mb-10">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            Welcome to <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">EduHub</span>
+          </h1>
+          <p className="text-xl text-purple-200 mb-10">
             A modern learning platform for teachers, students, and educators
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <BookOpen className="w-10 h-10 text-blue-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-1">Rich Content</h3>
-              <p className="text-sm text-gray-600">PDFs, videos, and interactive quizzes</p>
+            <div className="bg-slate-800/50 backdrop-blur-xl border border-purple-500/20 p-6 rounded-2xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all">
+              <BookOpen className="w-10 h-10 text-purple-400 mb-3" />
+              <h3 className="font-semibold text-white mb-1">Rich Content</h3>
+              <p className="text-sm text-purple-200">PDFs, videos, and interactive quizzes</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <Users className="w-10 h-10 text-green-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-1">Collaboration</h3>
-              <p className="text-sm text-gray-600">Teachers and students working together</p>
+            <div className="bg-slate-800/50 backdrop-blur-xl border border-purple-500/20 p-6 rounded-2xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all">
+              <Users className="w-10 h-10 text-green-400 mb-3" />
+              <h3 className="font-semibold text-white mb-1">Collaboration</h3>
+              <p className="text-sm text-purple-200">Teachers and students working together</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <Award className="w-10 h-10 text-purple-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-1">Certification</h3>
-              <p className="text-sm text-gray-600">Earn and share digital certificates</p>
+            <div className="bg-slate-800/50 backdrop-blur-xl border border-purple-500/20 p-6 rounded-2xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all">
+              <Award className="w-10 h-10 text-pink-400 mb-3" />
+              <h3 className="font-semibold text-white mb-1">Certification</h3>
+              <p className="text-sm text-purple-200">Earn and share digital certificates</p>
             </div>
           </div>
         </div>
 
         {/* Auth form */}
-        <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8">
-          <div className="flex rounded-lg overflow-hidden border border-gray-200 mb-6">
+        <div className="w-full max-w-sm bg-slate-800/50 backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-2xl shadow-purple-500/20 p-8">
+          <div className="flex rounded-lg overflow-hidden border border-purple-500/20 mb-6">
             <button
-              className={`flex-1 py-2 text-sm font-medium transition-colors ${mode === "login" ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-gray-50"}`}
+              className={`flex-1 py-2 text-sm font-medium transition-colors ${mode === "login" ? "bg-purple-600 text-white" : "text-purple-200 hover:bg-slate-700"}`}
               onClick={() => setMode("login")}
             >
               Sign In
             </button>
             <button
-              className={`flex-1 py-2 text-sm font-medium transition-colors ${mode === "register" ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-gray-50"}`}
+              className={`flex-1 py-2 text-sm font-medium transition-colors ${mode === "register" ? "bg-purple-600 text-white" : "text-purple-200 hover:bg-slate-700"}`}
               onClick={() => setMode("register")}
             >
               Register
@@ -144,43 +150,46 @@ export default function Home() {
           <div className="space-y-4">
             {mode === "register" && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <label className="block text-sm font-medium text-purple-200 mb-1">Full Name</label>
                 <Input
                   placeholder="Jane Smith"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="bg-slate-900/50 border-purple-500/20 text-white placeholder:text-purple-300/50"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-purple-200 mb-1">Email</label>
               <Input
                 type="email"
                 placeholder="you@example.com"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="bg-slate-900/50 border-purple-500/20 text-white placeholder:text-purple-300/50"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-purple-200 mb-1">Password</label>
               <Input
                 type="password"
                 placeholder="••••••••"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                className="bg-slate-900/50 border-purple-500/20 text-white placeholder:text-purple-300/50"
               />
             </div>
 
             {mode === "register" && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">I am a...</label>
+                <label className="block text-sm font-medium text-purple-200 mb-1">I am a...</label>
                 <select
                   value={form.role}
                   onChange={(e) => setForm({ ...form, role: e.target.value as any })}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-900/50 border border-purple-500/20 rounded-md px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="student">Student</option>
                   <option value="teacher">Teacher</option>
@@ -189,7 +198,7 @@ export default function Home() {
               </div>
             )}
 
-            <Button onClick={handleSubmit} disabled={submitting} className="w-full gap-2">
+            <Button onClick={handleSubmit} disabled={submitting} className="w-full gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
               {submitting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
