@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1781389298725,
+      "tag": "0000_light_silver_centurion",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1781389428855,
+      "tag": "0001_married_vindicator",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1781389511417,
+      "tag": "0002_lumpy_black_widow",
+      "breakpoints": true
+    }
+  ]
+}
